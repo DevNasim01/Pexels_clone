@@ -1,11 +1,16 @@
-import React from 'react'
+
 
 const Photo = () => {
+
+  
+
+
+
   return (
     <>
-    <section className=''>
+    <section className='w-full'>
         <div>
-            <img src="" alt="" />
+            <img src="pexels-photo-19621588.jpeg" alt="" />
         </div>
     </section>
     </>

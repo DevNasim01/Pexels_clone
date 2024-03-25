@@ -1,8 +1,8 @@
 "use client"
 import Hero from '@/components/Hero'
-import Main from '@/components/Main'
 import NavBar from '@/components/NavBar'
 import React, { useEffect, useState } from 'react'
+import PhotoContainer from '@/components/PhotoContainer'
 
 const Page = () => {
   const [imageSrc, setImageSrc] = useState('');
@@ -29,13 +29,13 @@ const Page = () => {
   return (
     <>
       <NavBar smallScreen={smallScreen} handleSmallScreen={handleSmallScreen}/>
-      {!smallScreen && <div className='md:h-[70%] h-[58%]' style={{ position: 'absolute', top: '0', zIndex: '-50', width: '100%' }}>
+      {!smallScreen && <div className='md:h-[32rem] h-[30rem]' style={{ position: 'relative', top: '0', zIndex: '-50', width: '100%' }}>
         <div className='h-full w-full black-overlay'>
           <img className='h-full w-full object-cover' style={{ position: 'relative', zIndex: '-10' }} src={imageSrc} alt="img" />
         </div>
       </div>}
       {!smallScreen && <Hero/>}
-      {!smallScreen && <Main/>}
+      {!smallScreen && <PhotoContainer/>}
       
     </>
   )

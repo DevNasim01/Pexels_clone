@@ -3,7 +3,7 @@ import React from "react";
 const Hero = () => {
   return (
     <>
-      <section className="flex px-5 md:mx-[26%] tracking-tight items-center flex-col mt-[15%] md:mt-[6%] justify-center opacity-90 mb-[18%] md:mb-[9%]">
+      <section className="absolute top-0 px-5 md:mx-[26%] tracking-tight items-center flex-col mt-28 md:mt-56  justify-center opacity-90 ">
         <p className="text-[2.15rem] leading-10 font-medium">
           The best free stock photos, royalty free images & videos shared by
           creators.
