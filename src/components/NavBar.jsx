@@ -3,9 +3,10 @@ import React from 'react'
 
 
 const NavBar = ({smallScreen, handleSmallScreen}) => {
+
   return (
     <>
-      <div className='fixed top-0 w-full'>
+      <nav className='absolute top-0 w-full'>
       <div className='grid grid-cols-2 w-full px-5 md:px-24 py-5 plus-bolder'>
         <div className='flex items-center'>
           <div className='md:hidden'>
@@ -48,7 +49,7 @@ const NavBar = ({smallScreen, handleSmallScreen}) => {
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300 ease-in-out drop-shadow-md shadow-white" type="submit">Search</button>
       </form>
       </div> : null}
-      </div>
+      </nav>
     </>
   )
 }

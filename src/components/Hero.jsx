@@ -3,8 +3,8 @@ import React from "react";
 const Hero = () => {
   return (
     <>
-      <section className="absolute top-0 px-5 md:mx-[26%] tracking-tight items-center flex-col mt-28 md:mt-56  justify-center opacity-90 ">
-        <p className="text-[2.15rem] leading-10 font-medium">
+      <section className="absolute top-0 px-5 md:mx-[20%] tracking-tight items-center flex-col mt-32 md:mt-40  justify-center opacity-90 ">
+        <p className="md:text-[2.7rem]/[3.4rem] text-[2rem]/[2rem] leading-10 font-medium">
           The best free stock photos, royalty free images & videos shared by
           creators.
         </p>
