@@ -1,6 +1,6 @@
 // pages/api/getPhoto.js
 
-let nextPageUrl = 'https://api.pexels.com/v1/curated?per_page=10'; // Initial next page URL
+let nextPageUrl = 'https://api.pexels.com/v1/curated?per_page=35'; // Initial next page URL
 
 export default async function handler(req, res) {
   try {
