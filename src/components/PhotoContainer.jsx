@@ -88,7 +88,7 @@ const PhotoContainer = () => {
           <>
             <main className='w-full mt-5 md:columns-3 columns-2'>
               {photoList.map((photo, index) => (
-                <Photo key={index} src={photo.src.original} alt={photo.alt} />
+                <Photo key={photo.id} src={photo.src.original} alt={photo.alt} />
               ))}
             </main>
             {loading && (
