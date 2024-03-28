@@ -11,52 +11,63 @@ const PhotoContainer = () => {
 
   const fetchPhotos = async (pageNumber) => {
     try {
-      const response = await fetch(`/api/getPhoto?page=${pageNumber}`); 
+      const response = await fetch(`/api/getPhoto?page=${pageNumber}`);
       if (!response.ok) {
         throw new Error('Failed to fetch photo');
       }
       const data = await response.json();
       if (data.photos && data.photos.length > 0) {
-        setPhotoList(prevPhotos => [...prevPhotos, ...data.photos])
+        setPhotoList((prevPhotos) => [...prevPhotos, ...data.photos]);
       } else {
         setNotFound('No photos found');
       }
     } catch (error) {
       console.error('Error fetching photo:', error.message);
       setError('Failed to load photos. Please check your network connection.');
-    } finally {
-      setLoading(false);
     }
   };
-  
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     fetchPhotos(page);
-  },[]);
-
-  
-  const handleScroll = () => {
-    try {
-      if(window.innerHeight + document.documentElement.scrollTop + 1 > document.documentElement.scrollHeight){
-        setPage(prevPage => prevPage + 1);
-        setLoading(false)
-      }
-
-    } catch (error) {
-      console.log('Error fetching photos:', error.message);
-    }
-  };
-
-  
+  }, [page]);
 
   useEffect(() => {
-    setLoading(true)
+    const handleScroll = () => {
+      try {
+        if (
+          window.innerHeight + document.documentElement.scrollTop + 1 >
+          document.documentElement.scrollHeight
+        ) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      } catch (error) {
+        console.log('Error fetching photos:', error.message);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    const images = document.querySelectorAll('img');
+    const promises = [];
+    images.forEach((image) => {
+      promises.push(
+        new Promise((resolve) => {
+          image.onload = resolve;
+          image.onerror = resolve;
+        })
+      );
+    });
+
+    Promise.all(promises).then(() => {
+      setLoading(false);
+    });
+  }, [photoList]);
 
   return (
     <>
