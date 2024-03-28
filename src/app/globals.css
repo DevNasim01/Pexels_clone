@@ -32,6 +32,10 @@ body{
 .black-overlay{
   background-color: rgba(0, 0, 0, 0.5);
 }
-body::-webkit-scrollbar {
-  width: 0px;
+
+@media (max-width: 768px) {
+  body::-webkit-scrollbar {
+    width: 0px;
+  }
+  
 }

@@ -8,56 +8,55 @@ const PhotoContainer = () => {
   const [error, setError] = useState('');
   const [notFound, setNotFound] = useState('');
   const [page, setPage] = useState(1);
-  const [fetchingNextPage, setFetchingNextPage] = useState(false); // Track the current page number
 
   const fetchPhotos = async (pageNumber) => {
     try {
-      const response = await fetch(`/api/getPhoto?page=${pageNumber}`);
+      const response = await fetch(`/api/getPhoto?page=${pageNumber}`); 
       if (!response.ok) {
         throw new Error('Failed to fetch photo');
       }
       const data = await response.json();
       if (data.photos && data.photos.length > 0) {
-        // Concatenate new data with previous data
-        setPhotoList(prevPhotos => [...prevPhotos, ...data.photos]);
+        setPhotoList(prevPhotos => [...prevPhotos, ...data.photos])
       } else {
         setNotFound('No photos found');
       }
     } catch (error) {
       console.error('Error fetching photo:', error.message);
-      setError('Failed to load photos. Please try again later.');
+      setError('Failed to load photos. Please check your network connection.');
     } finally {
       setLoading(false);
-      setFetchingNextPage(false);
     }
   };
+  
 
+  useEffect(() => {
+    setLoading(true)
+    fetchPhotos(page);
+  },[]);
+
+  
   const handleScroll = () => {
-    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-    if (scrollTop + clientHeight >= scrollHeight - 20) {
-      if (!fetchingNextPage) {
+    try {
+      if(window.innerHeight + document.documentElement.scrollTop + 1 > document.documentElement.scrollHeight){
         setPage(prevPage => prevPage + 1);
-        setFetchingNextPage(true);
+        setLoading(false)
       }
+
+    } catch (error) {
+      console.log('Error fetching photos:', error.message);
     }
   };
 
-  useEffect(() => {
-    fetchPhotos(page)
-      .then(() => setFetchingNextPage(false))
-      .catch(error => {
-        console.error('Error fetching photo:', error.message);
-        setError('Failed to load photos. Please try again later.');
-        setLoading(false);
-      });
-  }, [page]);
+  
 
   useEffect(() => {
+    setLoading(true)
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [fetchingNextPage]);
+  }, []);
 
   return (
     <>
@@ -75,18 +74,20 @@ const PhotoContainer = () => {
         </div>
 
 
-        {loading ? (
-          <div className='text-2xl'>Loading...</div>
-        ) : error ? (
+        {error ? (
           <div className='text-2xl'>{error}</div>
         ) : notFound ? (
           <div className='text-2xl'>{notFound}</div>
         ) : (         
+            <>
             <main className='w-full mt-5 md:columns-3 columns-2'>
-            {photoList.map(photo => (
-              <Photo key={photo.id} src={photo.src.original} alt={photo.alt} />
+            {photoList.map((photo, index) => (
+              <Photo key={index} src={photo.src.original} alt={photo.alt} />
             ))}
-            </main>          
+            </main> 
+            {loading && <div className='text-center w-full text-black text-2xl'>Loading...</div>}
+            </>
+                     
         )}
 
     </section>
