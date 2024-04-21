@@ -11,14 +11,17 @@ const Page = ({params}) => {
   const [notFound, setNotFound] = useState('');
   const [page, setPage] = useState(1);
   const [searchValue, setSearchValue] = useState('');
+  const [firstRequestComplete, setFirstRequestComplete] = useState(true);
 
   const fnlValue = searchValue || params.value;
   useEffect(() =>{
     setmainpage(true);
+    setLoading(true)
   },[])
 
   const fetchPhotos = async (pageNumber) => {
     try {
+      console.log("requested")
       const response = await fetch(`/api/searchPhoto?query=${fnlValue}&page=${pageNumber}`);
       if (!response.ok) {
         throw new Error('Failed to fetch photo');
@@ -26,6 +29,7 @@ const Page = ({params}) => {
       const data = await response.json();
       if (data.photos && data.photos.length > 0) {
         setPhotoList((prevPhotos) => [...prevPhotos, ...data.photos]);
+        setFirstRequestComplete(true);
       } else {
         setNotFound('No photos found');
       }
@@ -36,8 +40,12 @@ const Page = ({params}) => {
   };
 
   useEffect(() => {
+    if (!firstRequestComplete) { // Check if the first request is complete before making subsequent requests
+      return;
+    }
     setLoading(true);
     fetchPhotos(page);
+    setFirstRequestComplete(false);
   }, [page, searchValue]);
 
   useEffect(() => {
@@ -60,22 +68,22 @@ const Page = ({params}) => {
     };
   }, []);
 
-  useEffect(() => {
-    const images = document.querySelectorAll('img');
-    const promises = [];
-    images.forEach((image) => {
-      promises.push(
-        new Promise((resolve) => {
-          image.onload = resolve;
-          image.onerror = resolve;
-        })
-      );
-    });
+  // useEffect(() => {
+  //   const images = document.querySelectorAll('img');
+  //   const promises = [];
+  //   images.forEach((image) => {
+  //     promises.push(
+  //       new Promise((resolve) => {
+  //         image.onload = resolve;
+  //         image.onerror = resolve;
+  //       })
+  //     );
+  //   });
 
-    Promise.all(promises).then(() => {
-      setLoading(false);
-    });
-  }, [photoList]);
+  //   Promise.all(promises).then(() => {
+  //     setLoading(false);
+  //   });
+  // }, [photoList]);
 
 
   const handleSearchSubmit = (value) => {
@@ -89,19 +97,19 @@ const Page = ({params}) => {
   return (
     <>
     <NavBar mainpage={mainpage} onSearchSubmit={handleSearchSubmit}/>
-    <div className='text-5xl text-black font-semibold md:top-24 px-5 md:mx-10 mt-20 py-10 capitalize'>{fnlValue} Images</div>
+    <div className='text-[4vw] text-black font-semibold relative px-5 md:mx-[2.5vw] mt-20 md:mt-[8vw] py-10 md:py-[2.5vw] capitalize'>{fnlValue} Images</div>
     {error ? (
-          <div className='text-2xl'>{error}</div>
+          <div className='text-[2vw]'>{error}</div>
         ) : notFound ? (
-          <div className='text-2xl'>{notFound}</div>
+          <div className='text-[2vw]'>{notFound}</div>
         ) : (         
             <>
-            <main className='w-full mt-5 md:columns-3 columns-2 px-5'>
-            {photoList.map((photo) => (
-              <Photo key={photo.id} src={photo.src.original} alt={photo.alt} />
+            <main className='w-full md:columns-3 columns-2 px-[1.5vw]'>
+            {photoList.map((photo, index) => (
+              <Photo key={index} src={photo.src.original} alt={photo.alt} />
             ))}
             </main> 
-            {loading && <div className='text-center w-full text-black text-2xl'>Loading...</div>}
+            {loading && <div className='text-center w-full text-black text-[2vw] py-2'>Loading...</div>}
             </>
                      
         )}

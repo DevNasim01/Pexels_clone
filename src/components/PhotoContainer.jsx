@@ -8,6 +8,7 @@ const PhotoContainer = () => {
   const [error, setError] = useState('');
   const [notFound, setNotFound] = useState('');
   const [page, setPage] = useState(1);
+  const [firstRequestComplete, setFirstRequestComplete] = useState(true);
 
   const fetchPhotos = async (pageNumber) => {
     try {
@@ -18,6 +19,7 @@ const PhotoContainer = () => {
       const data = await response.json();
       if (data.photos && data.photos.length > 0) {
         setPhotoList((prevPhotos) => [...prevPhotos, ...data.photos]);
+        setFirstRequestComplete(true);
       } else {
         setNotFound('No photos found');
       }
@@ -28,6 +30,9 @@ const PhotoContainer = () => {
   };
 
   useEffect(() => {
+    if (!firstRequestComplete) { // Check if the first request is complete before making subsequent requests
+      return;
+    }
     setLoading(true);
     fetchPhotos(page);
   }, [page]);
@@ -71,32 +76,32 @@ const PhotoContainer = () => {
 
   return (
     <>
-    <section className='text-black max-h-full flex flex-col items-center text-xs md:text-sm font-medium px-5 md:px-24 mt-5'>
+    <section className='text-black max-h-full flex flex-col items-center text-[1vw] md:text-[1vw] font-medium px-[1vw] md:px-[3vw] mt-[1vw]'>
         <div className='flex'>
-            <p className='md:px-7 px-4 cursor-pointer py-4 md:py-4 rounded-full hover:bg-black hover:text-white'>Videos</p>
-            <p className='md:px-7 px-4 cursor-pointer py-4 md:py-4 rounded-full hover:bg-black hover:text-white'>Home</p>
-            <p className='md:px-7 px-4 cursor-pointer py-4 md:py-4 rounded-full hover:bg-black hover:text-white'>Leaderboard</p>
-            <p className='md:px-7 px-4 cursor-pointer py-4 md:py-4 rounded-full hover:bg-black hover:text-white'>Challenges</p>
+            <p className='md:px-[2vw] px-4 cursor-pointer py-4 md:py-[1.2vw] rounded-full hover:bg-black hover:text-white'>Videos</p>
+            <p className='md:px-[2vw] px-4 cursor-pointer py-4 md:py-[1.2vw] rounded-full hover:bg-black hover:text-white'>Home</p>
+            <p className='md:px-[2vw] px-4 cursor-pointer py-4 md:py-[1.2vw] rounded-full hover:bg-black hover:text-white'>Leaderboard</p>
+            <p className='md:px-[2vw] px-4 cursor-pointer py-4 md:py-[1.2vw] rounded-full hover:bg-black hover:text-white'>Challenges</p>
         </div>
 
-        <div className='flex justify-between items-center w-full md:mt-5'>
-            <div className='py-5 text-xl md:text-2xl font-medium tracking-tight'>Free Stock Photos</div>
-            <button className='md:px-7 px-6 h-12 md:py-7 text-xs md:text-base rounded-md font-medium border-2 flex items-center gap-2'>Tranding <i className="fa-solid fa-chevron-down"></i></button>
+        <div className='flex justify-between items-center w-full md:mt-[1vw]'>
+            <div className='py-5 text-[1.4vw] md:text-[2vw] font-medium tracking-tight'>Free Stock Photos</div>
+            <button className='md:px-[2vw] px-[1vw] h-[4.5vw] text-[1.2vw] rounded-md font-medium border-2 flex items-center gap-2'>Tranding <i className="fa-solid fa-chevron-down"></i></button>
         </div>
 
 
         {error ? (
-          <div className='text-2xl'>{error}</div>
+          <div className='text-[2vw]'>{error}</div>
         ) : notFound ? (
-          <div className='text-2xl'>{notFound}</div>
+          <div className='text-[2vw]'>{notFound}</div>
         ) : (         
             <>
-            <main className='w-full mt-5 md:columns-3 columns-2'>
+            <main className='w-full mt-[1vw] md:columns-3 columns-2'>
             {photoList.map((photo, index) => (
               <Photo key={photo.id} src={photo.src.original} alt={photo.alt} />
             ))}
             </main> 
-            {loading && <div className='text-center w-full text-black text-2xl'>Loading...</div>}
+            {loading && <div className='text-center w-full text-black text-[2vw] py-2'>Loading...</div>}
             </>
                      
         )}

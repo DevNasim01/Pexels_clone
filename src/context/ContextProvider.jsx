@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Context from "./useContext";
+import Context from "./Context";
 
 const ContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);

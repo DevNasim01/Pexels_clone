@@ -32,7 +32,7 @@ const Page = () => {
     <>
       <ContextProvider>
           <NavBar smallScreen={smallScreen} handleSmallScreen={handleSmallScreen}/>
-          {!smallScreen && <div className='md:h-[32rem] h-[30rem]' style={{ position: 'relative', top: '0', zIndex: '-50', width: '100%' }}>
+          {!smallScreen && <div className='md:h-[35vw] h-[30rem]' style={{ position: 'relative', top: '0', zIndex: '-50', width: '100%' }}>
             <div className='h-full w-full black-overlay'>
               <img className='h-full w-full object-cover' style={{ position: 'relative', zIndex: '-10' }} src={imageSrc} alt="img" />
             </div>
