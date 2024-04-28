@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   try {
     const { page } = req.query;
-    const response = await fetch(`https://api.pexels.com/v1/curated?page=${page}&per_page=10`, { 
+    const response = await fetch(`https://api.pexels.com/v1/curated?page=${page}&per_page=18`, { 
       headers: {
         Authorization: process.env.NEXT_PUBLIC_API_KEY
       }
