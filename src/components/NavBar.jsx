@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 
 
-const NavBar = ({smallScreen, handleSmallScreen, mainpage, onSearchSubmit}) => {
+const NavBar = ({ mainpage, onSearchSubmit}) => {
   const [value, setvalue] = useState('');
   
   const additionalStyles = mainpage && {
@@ -38,10 +38,10 @@ const NavBar = ({smallScreen, handleSmallScreen, mainpage, onSearchSubmit}) => {
           </div>
         </div>
           
-       {mainpage? <div className='w-full px-[2vw] text-[1.2vw]'>
+       {mainpage? <div className='w-full px-5 md:px-[2vw] text-base md:text-[1.2vw]'>
           <form className="flex items-center" role="search" onSubmit={handelSubmit}>
               <input onChange={handelScearch} value={value}
-                className="border border-gray-300 rounded-md px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-slate-400 focus:border-transparent btn-home"
+                className="border border-gray-300 rounded-md px-4 py-2 md:py-3 w-full focus:outline-none focus:ring-2 focus:ring-slate-400 focus:border-transparent btn-home"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
@@ -61,25 +61,17 @@ const NavBar = ({smallScreen, handleSmallScreen, mainpage, onSearchSubmit}) => {
           </div>
         </div>
 
-        {smallScreen ? 
-        <div className='text-white text-[1.4vw] px-2'><i className="fa-solid fa-upload"></i></div> :
-        mainpage ? <button className='hidden md:block hover:shadow-md transition-all duration-300 px-[1.5vw] text-[1.2vw] py-[0.8vw] border shadow-sm bg-white text-black font-medium rounded-md md:ml-[1.5vw]'>Upload</button> : <button className='px-[2.5vw] py-[1vw] bg-white text-black font-medium text-[1.2vw] rounded-md md:ml-5'>Upload</button>
+        {
+        mainpage ? <button className='hidden md:block hover:shadow-md transition-all duration-300 px-[1.5vw] text-[1.2vw] py-[0.8vw] border shadow-sm bg-white text-black font-medium rounded-md md:ml-[1.5vw]'>Upload</button> : <button className='md:px-[2.5vw] md:py-[1vw] px-5 py-2 bg-white text-black font-medium text-balance md:text-[1.2vw] rounded-md mr-3 md:ml-5'>Upload</button>
         }
         
-        <div className='md:hidden mx-0 my-auto text-2xl' onClick={handleSmallScreen}>
-            {smallScreen ? <i className="fa-solid fa-xmark text-white"></i> : <i className="fa-solid fa-bars "></i>}
+        <div className='md:hidden mx-0 my-auto text-2xl'>
+            <i className="fa-solid fa-bars "></i>
           </div>
         </div>
       </div>
 
-      {smallScreen ? 
-      <div className='w-full flex justify-center plus-bolder'>
-      <form className="flex items-center gap-4" role="search">
-          <input className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:border-transparent" type="search" placeholder="Search" aria-label="Search"/>
-
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300 ease-in-out drop-shadow-md shadow-white" type="submit">Search</button>
-      </form>
-      </div> : null}
+      
       </nav>
     </>
   )

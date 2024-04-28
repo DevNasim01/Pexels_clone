@@ -76,7 +76,7 @@ const PhotoContainer = () => {
 
   return (
     <>
-    <section className='text-black max-h-full flex flex-col items-center text-[1vw] md:text-[1vw] font-medium px-[1vw] md:px-[3vw] mt-[1vw]'>
+    <section className='text-black max-h-full flex flex-col items-center text-xs lg:text-[1vw] font-medium px-[5vw] md:px-[3vw] mt-[1vw]'>
         <div className='flex'>
             <p className='md:px-[2vw] px-4 cursor-pointer py-4 md:py-[1.2vw] rounded-full hover:bg-black hover:text-white'>Videos</p>
             <p className='md:px-[2vw] px-4 cursor-pointer py-4 md:py-[1.2vw] rounded-full hover:bg-black hover:text-white'>Home</p>
@@ -85,8 +85,8 @@ const PhotoContainer = () => {
         </div>
 
         <div className='flex justify-between items-center w-full md:mt-[1vw]'>
-            <div className='py-5 text-[1.4vw] md:text-[2vw] font-medium tracking-tight'>Free Stock Photos</div>
-            <button className='md:px-[2vw] px-[1vw] h-[4.5vw] text-[1.2vw] rounded-md font-medium border-2 flex items-center gap-2'>Tranding <i className="fa-solid fa-chevron-down"></i></button>
+            <div className='py-5 text-base md:text-[2vw] font-medium tracking-tight'>Free Stock Photos</div>
+            <button className='md:px-[2vw] px-5 py-2.5 md:py-0 md:h-[4.5vw] text-balance md:text-[1.2vw] rounded-md font-medium border-2 flex items-center gap-2'>Tranding <i className="fa-solid fa-chevron-down"></i></button>
         </div>
 
 
@@ -96,7 +96,7 @@ const PhotoContainer = () => {
           <div className='text-[2vw]'>{notFound}</div>
         ) : (         
             <>
-            <main className='w-full mt-[1vw] md:columns-3 columns-2'>
+            <main className='w-full mt-[3vw] md:columns-3 columns-2'>
             {photoList.map((photo, index) => (
               <Photo key={photo.id} src={photo.src.original} alt={photo.alt} />
             ))}
