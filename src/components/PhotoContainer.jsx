@@ -57,22 +57,22 @@ const PhotoContainer = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const images = document.querySelectorAll('img');
-    const promises = [];
-    images.forEach((image) => {
-      promises.push(
-        new Promise((resolve) => {
-          image.onload = resolve;
-          image.onerror = resolve;
-        })
-      );
-    });
+  // useEffect(() => {
+  //   const images = document.querySelectorAll('img');
+  //   const promises = [];
+  //   images.forEach((image) => {
+  //     promises.push(
+  //       new Promise((resolve) => {
+  //         image.onload = resolve;
+  //         image.onerror = resolve;
+  //       })
+  //     );
+  //   });
 
-    Promise.all(promises).then(() => {
-      setLoading(false);
-    });
-  }, [photoList]);
+  //   Promise.all(promises).then(() => {
+  //     setLoading(false);
+  //   });
+  // }, [photoList]);
 
   return (
     <>
@@ -98,7 +98,7 @@ const PhotoContainer = () => {
             <>
             <main className='w-full mt-[3vw] md:columns-3 columns-2'>
             {photoList.map((photo, index) => (
-              <Photo key={photo.id} src={photo.src.original} alt={photo.alt} />
+              <Photo key={photo.id} srcSet={photo.src} alt={photo.alt} />
             ))}
             </main> 
             {loading && <div className='text-center w-full text-black text-[2vw] py-2'>Loading...</div>}
