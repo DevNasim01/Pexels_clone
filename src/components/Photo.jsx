@@ -6,9 +6,9 @@ const Photo = ({ srcSet, alt }) => {
   .filter(([key]) => key !== "original")
     .map(([key, value]) => {
       const url = new URL(value);
-      const height = url.searchParams.get("h") || "auto"; // Default to "auto" if height is not provided
+      // const height = url.searchParams.get("h") || "auto"; // Default to "auto" if height is not provided
       const width = url.searchParams.get("w") || "auto"; // Default to "auto" if width is not provided
-      return `${value} ${width}w ${height}h`;
+      return `${value} ${width}w`;
     })
     .join(", ");
 
