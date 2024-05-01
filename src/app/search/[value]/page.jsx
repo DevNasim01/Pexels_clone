@@ -94,6 +94,16 @@ const Page = ({params}) => {
     setNotFound('');
     setPage(1);
   };
+
+  const halfLength = Math.ceil(photoList.length / 2);
+  const firstHalf = photoList.slice(0, halfLength);
+  const secondHalf = photoList.slice(halfLength);
+
+  const triceLength = Math.ceil(photoList.length / 3);
+  const firstTrice = photoList.slice(0, triceLength);
+  const secondTrice = photoList.slice(triceLength, triceLength * 2);
+  const thirdTrice = photoList.slice(triceLength * 2);
+
   return (
     <>
     <NavBar mainpage={mainpage} onSearchSubmit={handleSearchSubmit}/>
@@ -104,11 +114,38 @@ const Page = ({params}) => {
           <div className='text-[2vw]'>{notFound}</div>
         ) : (         
             <>
-            <main className='w-full md:columns-3 columns-2 px-[1.5vw]'>
-            {photoList.map((photo, index) => (
-              <Photo key={index} src={photo.src.original} alt={photo.alt} />
-            ))}
-            </main> 
+            <main className="w-full md:mt-5 px-5 md:px-[2.5vw]">
+              <div className="md:hidden w-full flex gap-4">
+                <div className="w-full ">
+                  {firstHalf.map((photo, index) => (
+                    <Photo key={index} srcSet={photo.src} alt={photo.alt} />
+                  ))}
+                </div>
+                <div className="w-full">
+                  {secondHalf.map((photo, index) => (
+                    <Photo key={index} srcSet={photo.src} alt={photo.alt} />
+                  ))}
+                </div>
+              </div>
+
+              <div className="hidden md:flex w-full gap-4">
+                <div className="w-full">
+                  {firstTrice.map((photo, index) => (
+                    <Photo key={index} srcSet={photo.src} alt={photo.alt} />
+                  ))}
+                </div>
+                <div className="w-full ">
+                  {secondTrice.map((photo, index) => (
+                    <Photo key={index} srcSet={photo.src} alt={photo.alt} />
+                  ))}
+                </div>
+                <div className="w-full ">
+                  {thirdTrice.map((photo, index) => (
+                    <Photo key={index} srcSet={photo.src} alt={photo.alt} />
+                  ))}
+                </div>
+              </div>
+            </main>
             {loading && <div className='text-center w-full text-black text-[2vw] py-2'>Loading...</div>}
             </>
                      
